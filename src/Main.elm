@@ -15,26 +15,31 @@ type alias Model =
     String
 
 
-init : Model
+type alias Model1 =
+    { content : String
+    }
+
+
+init : Model1
 init =
-    ""
+    { content = "" }
 
 
 type Msg
     = Change String
-update : Msg -> Model -> Model
+
+
+update : Msg -> Model1 -> Model1
 update msg model =
     case msg of
         Change newString ->
-            newString
+            { model | content = newString }
 
 
-view : Model -> Html Msg
+view : Model1 -> Html Msg
 view model =
-    div[] [
-    input[placeholder "text to reverse", value model, onInput Change][]
-    ,
-    div[][text (String.reverse model)]
-    ,
-    div[][text (fromInt (String.length model))]
-    ]
+    div []
+        [ input [ placeholder "text to reverse", value model.content, onInput Change ] []
+        , div [] [ text (String.reverse model.content) ]
+        , div [] [ text (fromInt (String.length model.content)) ]
+        ]
